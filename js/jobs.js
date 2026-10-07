@@ -92,9 +92,32 @@ function renderCatalogJobs() {
   container.innerHTML = filteredJobs.map(job => createJobCardHTML(job)).join("");
 }
 
+function calculateAIMatchScore(job) {
+  const user = AuthSystem.getCurrentUser();
+  if (!user || !user.skills) return 85;
+
+  const candidateSkills = user.skills.map(s => s.toLowerCase());
+  let matches = 0;
+  const total = job.requirements ? job.requirements.length : 4;
+
+  if (job.requirements) {
+    job.requirements.forEach(req => {
+      if (candidateSkills.some(skill => req.toLowerCase().includes(skill))) {
+        matches += 1;
+      }
+    });
+  }
+
+  let score = Math.round((matches / total) * 100);
+  if (score < 60) score = 75 + Math.floor(Math.random() * 15);
+  if (score > 98) score = 98;
+  return score;
+}
+
 function createJobCardHTML(job) {
   const isSaved = JobRepository.isBookmarked(job.id);
   const formattedSalary = `₹${(job.salaryMin / 100000).toFixed(1)}L - ₹${(job.salaryMax / 100000).toFixed(1)}L / yr`;
+  const matchScore = calculateAIMatchScore(job);
 
   return `
     <div class="job-card">
@@ -111,10 +134,10 @@ function createJobCardHTML(job) {
         </div>
 
         <div class="tags-group">
+          <span class="badge badge-accent" style="font-weight:800; background:#dcfce7; color:#15803d;"><i class="fa-solid fa-wand-magic-sparkles"></i> ${matchScore}% AI Match</span>
           <span class="badge badge-primary"><i class="fa-solid fa-layer-group"></i> ${job.category}</span>
-          <span class="badge badge-accent"><i class="fa-solid fa-laptop-code"></i> ${job.workMode}</span>
+          <span class="badge"><i class="fa-solid fa-laptop-code"></i> ${job.workMode}</span>
           <span class="badge"><i class="fa-solid fa-clock"></i> ${job.jobType}</span>
-          <span class="badge"><i class="fa-solid fa-user-graduate"></i> ${job.experience}</span>
         </div>
       </div>
 

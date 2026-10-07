@@ -29,7 +29,7 @@
       <div class="auth-card">
         <div class="auth-header">
           <h1 class="auth-title">Welcome Back</h1>
-          <p style="color:var(--text-muted);">Sign in to access your dashboard</p>
+          <p style="color:var(--text-muted);">Sign in to access your Candidate or Employer dashboard</p>
         </div>
 
         <!-- Role Toggle Tabs -->
@@ -42,17 +42,17 @@
           </button>
         </div>
 
-        <!-- Quick One-Click Demo Login Box -->
+        <!-- Quick One-Click Evaluation Demo Login Box -->
         <div class="demo-login-box">
           <div style="font-size:0.85rem; font-weight:700; color:var(--primary); margin-bottom:0.4rem;">
             <i class="fa-solid fa-bolt"></i> ONE-CLICK EVALUATION LOGIN
           </div>
-          <button type="button" onclick="handleDemoLogin()" class="btn btn-outline btn-sm" style="width:100%;">
-            Login as Demo <span id="demo-role-label">Job Seeker</span>
+          <button type="button" onclick="handleDemoLogin()" class="btn btn-outline btn-sm" style="width:100%; font-weight:700;">
+            Sign In as Demo <span id="demo-role-label">Job Seeker</span>
           </button>
         </div>
 
-        <!-- Login Form -->
+        <!-- Authentication Form -->
         <form onsubmit="handleLoginSubmit(event)">
           <input type="hidden" id="login-role" value="seeker">
 
@@ -72,7 +72,7 @@
         </form>
 
         <div style="text-align:center; margin-top:1.5rem; font-size:0.9rem; color:var(--text-muted);">
-          Don't have an account yet? <a href="register.html">Sign Up</a>
+          Don't have an account yet? <a href="register.html">Sign Up Free</a>
         </div>
       </div>
     </div>
@@ -81,6 +81,7 @@
   <script src="js/jobs-data.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/ai-assistant.js"></script>
   <script>
     let currentRole = "seeker";
 
@@ -104,11 +105,11 @@
     }
 
     function handleDemoLogin() {
-      AuthSystem.loginAsDemo(currentRole);
-      showToast(`Logged in successfully as Demo ${currentRole.toUpperCase()}!`, "success");
+      const user = AuthSystem.loginAsDemo(currentRole);
+      showToast(`Signed in successfully as Demo ${currentRole.toUpperCase()}!`, "success");
       setTimeout(() => {
         window.location.href = currentRole === "employer" ? "employer-dashboard.html" : "seeker-dashboard.html";
-      }, 800);
+      }, 700);
     }
 
     function handleLoginSubmit(e) {
@@ -122,7 +123,7 @@
 
       setTimeout(() => {
         window.location.href = role === "employer" ? "employer-dashboard.html" : "seeker-dashboard.html";
-      }, 800);
+      }, 700);
     }
   </script>
 </body>
