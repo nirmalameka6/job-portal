@@ -76,7 +76,7 @@ jobpulse-portal/
 
 1. Clone or download the repository:
    ```bash
-   git clone https://github.com/nirmalameka6/E-commerce-project.git
+   git clone https://github.com/nirmalameka6/Open-Source-Job-Portal.git
    ```
 2. Open `index.html` directly in any web browser, or launch a local web server:
    ```bash

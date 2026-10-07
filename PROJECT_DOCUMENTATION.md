@@ -9,7 +9,7 @@
 * **Course Name**: Full Stack Web Development (FSD) Project 2
 * **Instructor Name**: Course Evaluation Panel
 * **Submission Date**: October 7, 2026
-* **GitHub Repository**: [https://github.com/nirmalameka6/E-commerce-project.git](https://github.com/nirmalameka6/E-commerce-project.git)
+* **GitHub Repository**: [https://github.com/nirmalameka6/Open-Source-Job-Portal.git](https://github.com/nirmalameka6/Open-Source-Job-Portal.git)
 * **Live Local Server Link**: `http://localhost:5000/index.html`
 
 ---
@@ -175,7 +175,7 @@ The **JobPulse Open Source Job Portal** project demonstrates a complete, product
 
 ## 10. GitHub Repository & Code Files
 
-* **GitHub Repository Link**: [https://github.com/nirmalameka6/E-commerce-project.git](https://github.com/nirmalameka6/E-commerce-project.git)
+* **GitHub Repository Link**: [https://github.com/nirmalameka6/Open-Source-Job-Portal.git](https://github.com/nirmalameka6/Open-Source-Job-Portal.git)
 * **Local Project Directory**: `C:\Users\Admin\.gemini\antigravity\scratch\jobpulse-portal\`
 * **Compressed ZIP Submission File**: `C:\Users\Admin\.gemini\antigravity\scratch\jobpulse-portal.zip`
 * **Live Local Server Link**: `http://localhost:5000/index.html`
