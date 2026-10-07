@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse All Jobs — JobPulse</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-briefcase"></i> JobPulse <span class="brand-badge">Open Source</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="jobs.html" class="nav-link active">Find Jobs</a></li>
+        <li><a href="seeker-dashboard.html" class="nav-link">Candidate Portal</a></li>
+        <li><a href="employer-dashboard.html" class="nav-link">Employer Portal</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-actions">
+        <!-- Dynamically rendered via app.js -->
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="catalog-layout">
+        <!-- Sidebar Filter Panel -->
+        <aside class="filter-sidebar">
+          <div class="filter-header">
+            <h3 class="filter-title"><i class="fa-solid fa-sliders"></i> Filter Jobs</h3>
+            <button onclick="clearCatalogFilters()" class="btn btn-secondary btn-sm" style="font-size:0.8rem;">Clear All</button>
+          </div>
+
+          <!-- Keyword Filter -->
+          <div class="filter-group">
+            <label class="filter-label">Keyword Search</label>
+            <input type="text" id="catalog-keyword-search" class="form-control" placeholder="Search title, skills...">
+          </div>
+
+          <!-- Categories -->
+          <div class="filter-group filter-checkbox-group">
+            <label class="filter-label">Category</label>
+            <label class="filter-checkbox">
+              <input type="checkbox" class="category-filter-checkbox" value="Software Development"> Software Development
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" class="category-filter-checkbox" value="Design"> UI/UX Design
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" class="category-filter-checkbox" value="Data Science"> Data & AI
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" class="category-filter-checkbox" value="Marketing"> Marketing
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" class="category-filter-checkbox" value="Product Management"> Product Management
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" class="category-filter-checkbox" value="Human Resources"> Human Resources
+            </label>
+          </div>
+
+          <!-- Work Mode -->
+          <div class="filter-group filter-checkbox-group">
+            <label class="filter-label">Work Mode</label>
+            <label class="filter-checkbox">
+              <input type="checkbox" class="workmode-filter-checkbox" value="Remote"> Remote
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" class="workmode-filter-checkbox" value="Hybrid"> Hybrid
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" class="workmode-filter-checkbox" value="On-Site"> On-Site
+            </label>
+          </div>
+
+          <!-- Job Type -->
+          <div class="filter-group filter-checkbox-group">
+            <label class="filter-label">Job Type</label>
+            <label class="filter-checkbox">
+              <input type="checkbox" class="jobtype-filter-checkbox" value="Full-Time"> Full-Time
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" class="jobtype-filter-checkbox" value="Part-Time"> Part-Time
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" class="jobtype-filter-checkbox" value="Contract"> Contract
+            </label>
+          </div>
+
+          <!-- Salary Range Slider -->
+          <div class="filter-group">
+            <label class="filter-label">Minimum Salary Range</label>
+            <input type="range" id="salary-range-slider" class="range-slider" min="0" max="3000000" step="100000" value="0">
+            <div class="range-values">
+              <span>₹0</span>
+              <span id="salary-range-value">₹0 Lakhs+</span>
+              <span>₹30L+</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Catalog Content Column -->
+        <section>
+          <!-- Top Toolbar -->
+          <div class="catalog-toolbar">
+            <div class="results-count" id="catalog-results-count">Showing 0 Jobs</div>
+
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <label for="catalog-sort-select" style="font-size:0.9rem; font-weight:600; color:var(--text-muted);">Sort By:</label>
+              <select id="catalog-sort-select" class="sort-select">
+                <option value="latest">Latest Posted</option>
+                <option value="salary-desc">Salary: High to Low</option>
+                <option value="salary-asc">Salary: Low to High</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Job Cards List -->
+          <div class="jobs-grid" id="catalog-jobs-list" style="grid-template-columns: 1fr;">
+            <!-- Rendered dynamically via jobs.js -->
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 JobPulse Open Source Job Portal. MIT Licensed Project.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/jobs-data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/jobs.js"></script>
+</body>
+</html>

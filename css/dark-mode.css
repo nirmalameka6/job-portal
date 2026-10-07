@@ -1,0 +1,42 @@
+/* ==========================================================================
+   JobPulse Open Source Job Portal - Dark Theme Overrides
+   ========================================================================== */
+
+body.dark-mode {
+  --body-bg: #0b0f19;
+  --card-bg: #151d30;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border-color: #1e293b;
+  --primary-light: #1e293b;
+  --accent-light: #064e3b;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+}
+
+body.dark-mode .hero-search-box {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .search-input-group input,
+body.dark-mode .search-input-group select {
+  color: var(--text-main);
+}
+
+body.dark-mode .sort-select {
+  background-color: var(--card-bg);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+
+body.dark-mode .badge {
+  background-color: var(--border-color);
+  color: var(--text-muted);
+}
+
+body.dark-mode .table th {
+  background-color: #0f172a;
+  color: var(--text-muted);
+}

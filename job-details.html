@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Details — JobPulse</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-briefcase"></i> JobPulse <span class="brand-badge">Open Source</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="jobs.html" class="nav-link">Find Jobs</a></li>
+        <li><a href="seeker-dashboard.html" class="nav-link">Candidate Portal</a></li>
+        <li><a href="employer-dashboard.html" class="nav-link">Employer Portal</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-actions">
+        <!-- Dynamically rendered via app.js -->
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content" id="job-details-container">
+    <!-- Rendered dynamically via job-details.js -->
+  </main>
+
+  <!-- Job Application Modal Dialog -->
+  <div class="modal-backdrop" id="application-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h3 style="font-size:1.35rem; font-weight:800;">Apply for Position</h3>
+          <div id="modal-job-title-display" style="font-size:0.9rem; color:var(--text-muted);"></div>
+        </div>
+        <button onclick="closeApplicationModal()" class="modal-close">&times;</button>
+      </div>
+
+      <form onsubmit="handleApplicationSubmit(event)">
+        <input type="hidden" id="modal-job-id">
+
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="app-seeker-name" class="form-control" required placeholder="e.g. Alex Morgan">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="app-seeker-email" class="form-control" required placeholder="alex@example.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" id="app-seeker-phone" class="form-control" required placeholder="+91 9876543210">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Cover Letter / Introduction Pitch</label>
+          <textarea id="app-cover-letter" class="form-control" required placeholder="Introduce yourself and explain why you are a great fit for this position..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Upload Resume (PDF / DOCX)</label>
+          <input type="file" id="app-resume-file" class="form-control" accept=".pdf,.doc,.docx">
+          <small style="color:var(--text-muted); display:block; margin-top:0.25rem;">Max file size: 5MB. Will simulate resume upload.</small>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:1rem; margin-top:1.5rem;">
+          <button type="button" onclick="closeApplicationModal()" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Application <i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 JobPulse Open Source Job Portal. MIT Licensed Project.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/jobs-data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/jobs.js"></script>
+  <script src="js/job-details.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — JobPulse</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-briefcase"></i> JobPulse <span class="brand-badge">Open Source</span>
+      </a>
+
+      <div class="nav-actions" id="nav-actions">
+        <!-- Dynamically rendered via app.js -->
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="auth-wrapper">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1 class="auth-title">Welcome Back</h1>
+          <p style="color:var(--text-muted);">Sign in to access your dashboard</p>
+        </div>
+
+        <!-- Role Toggle Tabs -->
+        <div class="role-toggle">
+          <button type="button" class="role-btn active" id="role-seeker-btn" onclick="selectRole('seeker')">
+            <i class="fa-solid fa-user"></i> Job Seeker
+          </button>
+          <button type="button" class="role-btn" id="role-employer-btn" onclick="selectRole('employer')">
+            <i class="fa-solid fa-building"></i> Employer
+          </button>
+        </div>
+
+        <!-- Quick One-Click Demo Login Box -->
+        <div class="demo-login-box">
+          <div style="font-size:0.85rem; font-weight:700; color:var(--primary); margin-bottom:0.4rem;">
+            <i class="fa-solid fa-bolt"></i> ONE-CLICK EVALUATION LOGIN
+          </div>
+          <button type="button" onclick="handleDemoLogin()" class="btn btn-outline btn-sm" style="width:100%;">
+            Login as Demo <span id="demo-role-label">Job Seeker</span>
+          </button>
+        </div>
+
+        <!-- Login Form -->
+        <form onsubmit="handleLoginSubmit(event)">
+          <input type="hidden" id="login-role" value="seeker">
+
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="login-email" class="form-control" required placeholder="seeker@jobpulse.com" value="seeker@jobpulse.com">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="login-password" class="form-control" required placeholder="••••••••" value="password123">
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">
+            Sign In to Account <i class="fa-solid fa-right-to-bracket"></i>
+          </button>
+        </form>
+
+        <div style="text-align:center; margin-top:1.5rem; font-size:0.9rem; color:var(--text-muted);">
+          Don't have an account yet? <a href="register.html">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/jobs-data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let currentRole = "seeker";
+
+    function selectRole(role) {
+      currentRole = role;
+      document.getElementById("login-role").value = role;
+      
+      document.getElementById("role-seeker-btn").classList.toggle("active", role === "seeker");
+      document.getElementById("role-employer-btn").classList.toggle("active", role === "employer");
+
+      const emailInput = document.getElementById("login-email");
+      const demoLabel = document.getElementById("demo-role-label");
+
+      if (role === "employer") {
+        emailInput.value = "employer@techcorp.com";
+        demoLabel.textContent = "Employer";
+      } else {
+        emailInput.value = "seeker@jobpulse.com";
+        demoLabel.textContent = "Job Seeker";
+      }
+    }
+
+    function handleDemoLogin() {
+      AuthSystem.loginAsDemo(currentRole);
+      showToast(`Logged in successfully as Demo ${currentRole.toUpperCase()}!`, "success");
+      setTimeout(() => {
+        window.location.href = currentRole === "employer" ? "employer-dashboard.html" : "seeker-dashboard.html";
+      }, 800);
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value;
+      const pass = document.getElementById("login-password").value;
+      const role = document.getElementById("login-role").value;
+
+      AuthSystem.login(email, pass, role);
+      showToast("Signed in successfully!", "success");
+
+      setTimeout(() => {
+        window.location.href = role === "employer" ? "employer-dashboard.html" : "seeker-dashboard.html";
+      }, 800);
+    }
+  </script>
+</body>
+</html>

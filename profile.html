@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile — JobPulse</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-briefcase"></i> JobPulse <span class="brand-badge">Open Source</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="jobs.html" class="nav-link">Find Jobs</a></li>
+        <li><a href="seeker-dashboard.html" class="nav-link">Candidate Portal</a></li>
+        <li><a href="employer-dashboard.html" class="nav-link">Employer Portal</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-actions">
+        <!-- Dynamically rendered via app.js -->
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="container" style="padding-top:3rem; padding-bottom:4rem;">
+      <div style="max-width:750px; margin:0 auto;">
+        
+        <div style="background:var(--card-bg); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:2.5rem; box-shadow:var(--shadow-md);">
+          <div style="display:flex; align-items:center; gap:1.5rem; margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border-color);">
+            <div style="width:4.5rem; height:4.5rem; border-radius:50%; background:var(--primary); color:#ffffff; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:800;">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div>
+              <h1 style="font-size:1.6rem; font-weight:800; margin-bottom:0.25rem;">My Profile Settings</h1>
+              <p style="color:var(--text-muted); font-size:0.95rem;">Update your personal details, professional headline, and skills</p>
+            </div>
+          </div>
+
+          <form id="profile-form">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="profile-name" class="form-control" required>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+              <div class="form-group">
+                <label class="form-label">Email Address (Read-only)</label>
+                <input type="email" id="profile-email" class="form-control" readonly style="background:var(--body-bg);">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" id="profile-phone" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Professional Headline / Industry Role</label>
+              <input type="text" id="profile-headline" class="form-control" placeholder="e.g. Senior Full-Stack Engineer">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Current Location</label>
+              <input type="text" id="profile-location" class="form-control" placeholder="e.g. Bengaluru, India">
+            </div>
+
+            <!-- Skills Tags Manager -->
+            <div class="form-group">
+              <label class="form-label">Skills & Technical Competencies</label>
+              <div style="display:flex; gap:0.5rem; margin-bottom:0.75rem;">
+                <input type="text" id="add-skill-input" class="form-control" placeholder="e.g. React, Node.js, Python, AWS">
+                <button type="button" onclick="addSkillTag()" class="btn btn-secondary">Add</button>
+              </div>
+              <div id="skills-tags-container" style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+                <!-- Skill badges rendered via profile.js -->
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Bio & Professional Summary</label>
+              <textarea id="profile-bio" class="form-control" placeholder="Briefly describe your career background, experience, and goals..."></textarea>
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:1rem; margin-top:2rem;">
+              <button type="submit" class="btn btn-primary btn-lg">Save Profile Changes <i class="fa-solid fa-check"></i></button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 JobPulse Open Source Job Portal. MIT Licensed Project.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/jobs-data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

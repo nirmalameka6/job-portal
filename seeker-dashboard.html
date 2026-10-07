@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidate Dashboard — JobPulse</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-briefcase"></i> JobPulse <span class="brand-badge">Open Source</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="jobs.html" class="nav-link">Find Jobs</a></li>
+        <li><a href="seeker-dashboard.html" class="nav-link active">Candidate Portal</a></li>
+        <li><a href="employer-dashboard.html" class="nav-link">Employer Portal</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-actions">
+        <!-- Dynamically rendered via app.js -->
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="container" style="padding-top:3rem; padding-bottom:4rem;">
+      
+      <!-- Welcome Header Card -->
+      <div style="background:var(--card-bg); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:2rem; margin-bottom:2.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem;">
+        <div>
+          <h1 style="font-size:1.85rem; font-weight:800; margin-bottom:0.25rem;">Candidate Dashboard</h1>
+          <p style="color:var(--text-muted);">Manage your submitted job applications and saved bookmarks in real-time.</p>
+        </div>
+        <div style="display:flex; gap:1rem;">
+          <a href="profile.html" class="btn btn-outline"><i class="fa-solid fa-user-pen"></i> Edit Profile & Skills</a>
+          <a href="jobs.html" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search Jobs</a>
+        </div>
+      </div>
+
+      <!-- Submitted Applications Tracker -->
+      <div style="margin-bottom:3rem;">
+        <div class="section-header" style="margin-bottom:1.25rem;">
+          <div>
+            <h2 class="section-title" style="font-size:1.4rem;">My Submitted Applications (<span id="seeker-apps-count">0</span>)</h2>
+            <p class="section-subtitle">Real-time status updates from recruiters and hiring teams</p>
+          </div>
+        </div>
+
+        <div class="table-responsive" id="seeker-applications-table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Job Title & Company</th>
+                <th>Applied Date</th>
+                <th>Application Status</th>
+                <th>Recruiter Notes</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="seeker-applications-tbody">
+              <!-- Rendered via seeker-dashboard.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Saved Bookmarks Grid -->
+      <div>
+        <div class="section-header" style="margin-bottom:1.25rem;">
+          <div>
+            <h2 class="section-title" style="font-size:1.4rem;">Saved Jobs & Bookmarks</h2>
+            <p class="section-subtitle">Jobs you have favorited for easy access</p>
+          </div>
+        </div>
+
+        <div class="jobs-grid" id="seeker-bookmarks-grid">
+          <!-- Rendered via seeker-dashboard.js -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 JobPulse Open Source Job Portal. MIT Licensed Project.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/jobs-data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/jobs.js"></script>
+  <script src="js/seeker-dashboard.js"></script>
+</body>
+</html>

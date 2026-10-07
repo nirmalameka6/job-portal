@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — JobPulse</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-briefcase"></i> JobPulse <span class="brand-badge">Open Source</span>
+      </a>
+
+      <div class="nav-actions" id="nav-actions">
+        <!-- Dynamically rendered via app.js -->
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="auth-wrapper">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1 class="auth-title">Create Account</h1>
+          <p style="color:var(--text-muted);">Join JobPulse as a candidate or hiring team</p>
+        </div>
+
+        <!-- Role Toggle Tabs -->
+        <div class="role-toggle">
+          <button type="button" class="role-btn active" id="reg-seeker-btn" onclick="selectRegRole('seeker')">
+            <i class="fa-solid fa-user"></i> Job Seeker
+          </button>
+          <button type="button" class="role-btn" id="reg-employer-btn" onclick="selectRegRole('employer')">
+            <i class="fa-solid fa-building"></i> Employer
+          </button>
+        </div>
+
+        <!-- Registration Form -->
+        <form onsubmit="handleRegisterSubmit(event)">
+          <input type="hidden" id="reg-role" value="seeker">
+
+          <div class="form-group">
+            <label class="form-label">Full Name / Contact Person</label>
+            <input type="text" id="reg-name" class="form-control" required placeholder="Alex Morgan">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="reg-email" class="form-control" required placeholder="alex@example.com">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" id="reg-phone" class="form-control" required placeholder="+91 9876543210">
+          </div>
+
+          <div class="form-group" id="company-name-group" style="display:none;">
+            <label class="form-label">Company Name</label>
+            <input type="text" id="reg-company" class="form-control" placeholder="e.g. TechCorp Solutions">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="reg-password" class="form-control" required placeholder="Create a password">
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">
+            Create Free Account <i class="fa-solid fa-user-plus"></i>
+          </button>
+        </form>
+
+        <div style="text-align:center; margin-top:1.5rem; font-size:0.9rem; color:var(--text-muted);">
+          Already have an account? <a href="login.html">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/jobs-data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let regRole = "seeker";
+
+    function selectRegRole(role) {
+      regRole = role;
+      document.getElementById("reg-role").value = role;
+      
+      document.getElementById("reg-seeker-btn").classList.toggle("active", role === "seeker");
+      document.getElementById("reg-employer-btn").classList.toggle("active", role === "employer");
+
+      const compGroup = document.getElementById("company-name-group");
+      compGroup.style.display = role === "employer" ? "block" : "none";
+    }
+
+    function handleRegisterSubmit(e) {
+      e.preventDefault();
+
+      const fullName = document.getElementById("reg-name").value;
+      const email = document.getElementById("reg-email").value;
+      const phone = document.getElementById("reg-phone").value;
+      const password = document.getElementById("reg-password").value;
+      const companyName = document.getElementById("reg-company").value;
+
+      const newUser = AuthSystem.register({
+        fullName,
+        email,
+        phone,
+        role: regRole,
+        companyName: regRole === "employer" ? companyName : undefined,
+        companyLogo: regRole === "employer" ? "https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=120" : undefined
+      });
+
+      showToast("Account created successfully!", "success");
+
+      setTimeout(() => {
+        window.location.href = regRole === "employer" ? "employer-dashboard.html" : "seeker-dashboard.html";
+      }, 800);
+    }
+  </script>
+</body>
+</html>
