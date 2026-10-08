@@ -35,16 +35,21 @@
     <div class="container" style="padding-top:3rem; padding-bottom:4rem;">
       
       <!-- Welcome Header Card -->
-      <div style="background:var(--card-bg); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:2rem; margin-bottom:2.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem;">
+      <div style="background:var(--card-bg); border:1px solid var(--border-color); border-radius:var(--radius-xl); padding:2rem; margin-bottom:2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem;">
         <div>
           <h1 style="font-size:1.85rem; font-weight:800; margin-bottom:0.25rem;">Candidate Dashboard</h1>
-          <p style="color:var(--text-muted);">Manage your submitted job applications and saved bookmarks in real-time.</p>
+          <p style="color:var(--text-muted);">Manage your submitted job applications, interview email invitations, and recruiter chats.</p>
         </div>
         <div style="display:flex; gap:1rem;">
           <button onclick="openResumeVerifierModal()" class="btn btn-outline"><i class="fa-solid fa-wand-magic-sparkles"></i> Verify Resume & Match</button>
           <a href="profile.html" class="btn btn-secondary"><i class="fa-solid fa-user-pen"></i> Profile & Skills</a>
           <a href="jobs.html" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search Jobs</a>
         </div>
+      </div>
+
+      <!-- Received Official Interview Email Invitations Banner -->
+      <div id="seeker-interview-email-alerts">
+        <!-- Rendered via seeker-dashboard.js -->
       </div>
 
       <!-- Submitted Applications Tracker -->

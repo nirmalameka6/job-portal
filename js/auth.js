@@ -1,5 +1,5 @@
 /* ==========================================================================
-   JobPulse - User Authentication & Session Management System
+   JobPulse - User Authentication & Communications Storage System
    ========================================================================== */
 
 const DEMO_SEEKER = {
@@ -17,7 +17,7 @@ const DEMO_SEEKER = {
 
 const DEMO_EMPLOYER = {
   id: "usr-employer-01",
-  fullName: "Sarah Jenkins",
+  fullName: "Sarah Jenkins (HR Lead)",
   email: "employer@techcorp.com",
   role: "employer",
   phone: "+91 9123456789",
@@ -42,8 +42,16 @@ const SEED_APPLICATIONS = [
     coverLetter: "I am excited to apply for the Senior Full-Stack Developer position. I have over 4 years of hands-on experience building scalable applications using React, Node.js, and PostgreSQL.",
     resumeName: "Alex_Morgan_Resume.pdf",
     appliedDate: "2026-10-05",
-    status: "Shortlisted",
-    notes: "Great technical profile. Scheduled for round 1 interview."
+    status: "Interview Scheduled",
+    notes: "Shortlisted for technical round! Interview call letter sent to email.",
+    interviewEmailSent: true,
+    interviewDetails: {
+      date: "2026-10-12",
+      time: "11:00 AM IST",
+      mode: "Google Meet Video Call",
+      link: "https://meet.google.com/jobpulse-interview-demo",
+      interviewer: "Sarah Jenkins (HR Lead)"
+    }
   },
   {
     id: "app-102",
@@ -58,7 +66,31 @@ const SEED_APPLICATIONS = [
     resumeName: "Alex_Morgan_Resume.pdf",
     appliedDate: "2026-10-04",
     status: "Under Review",
-    notes: "Reviewing resume portfolio."
+    notes: "Reviewing candidate portfolio & ML models.",
+    interviewEmailSent: false
+  }
+];
+
+const SEED_MESSAGES = [
+  {
+    id: "msg-101",
+    appId: "app-101",
+    senderId: "usr-employer-01",
+    senderName: "Sarah Jenkins (HR TechCorp)",
+    senderRole: "employer",
+    recipientId: "usr-seeker-01",
+    text: "Hi Alex, we reviewed your profile and resume. We would like to schedule an interview for the Senior Full-Stack Developer role!",
+    timestamp: "2026-10-06 10:30 AM"
+  },
+  {
+    id: "msg-102",
+    appId: "app-101",
+    senderId: "usr-seeker-01",
+    senderName: "Alex Morgan",
+    senderRole: "seeker",
+    recipientId: "usr-employer-01",
+    text: "Thank you Sarah! I'm excited about this opportunity. 11:00 AM on Oct 12th works great for me.",
+    timestamp: "2026-10-06 11:15 AM"
   }
 ];
 
@@ -66,6 +98,7 @@ class AuthSystem {
   static USER_KEY = "jobpulse_current_user";
   static USERS_DB_KEY = "jobpulse_users_db";
   static APPS_KEY = "jobpulse_applications";
+  static MESSAGES_KEY = "jobpulse_messages";
 
   static init() {
     if (!localStorage.getItem(this.USERS_DB_KEY)) {
@@ -74,7 +107,9 @@ class AuthSystem {
     if (!localStorage.getItem(this.APPS_KEY)) {
       localStorage.setItem(this.APPS_KEY, JSON.stringify(SEED_APPLICATIONS));
     }
-    // Default to candidate demo user if non logged in
+    if (!localStorage.getItem(this.MESSAGES_KEY)) {
+      localStorage.setItem(this.MESSAGES_KEY, JSON.stringify(SEED_MESSAGES));
+    }
     if (!localStorage.getItem(this.USER_KEY)) {
       localStorage.setItem(this.USER_KEY, JSON.stringify(DEMO_SEEKER));
     }
@@ -91,7 +126,6 @@ class AuthSystem {
     let user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
 
     if (!user) {
-      // Create user on the fly if new email
       user = {
         id: "usr-" + Date.now(),
         fullName: email.split("@")[0].replace(".", " "),
@@ -143,6 +177,12 @@ class AuthSystem {
     return currentUser;
   }
 
+  static getUserById(userId) {
+    this.init();
+    const users = JSON.parse(localStorage.getItem(this.USERS_DB_KEY)) || [];
+    return users.find(u => u.id === userId) || null;
+  }
+
   static logout() {
     localStorage.removeItem(this.USER_KEY);
     window.location.href = "login.html";
@@ -170,13 +210,13 @@ class AuthSystem {
       id: "app-" + Date.now(),
       appliedDate: new Date().toISOString().split("T")[0],
       status: "Submitted",
-      notes: "Application received.",
+      notes: "Application received by hiring team.",
+      interviewEmailSent: false,
       ...appData
     };
     apps.unshift(newApp);
     localStorage.setItem(this.APPS_KEY, JSON.stringify(apps));
 
-    // Increment applicantsCount on job
     if (typeof JobRepository !== "undefined") {
       const job = JobRepository.getById(appData.jobId);
       if (job) {
@@ -187,12 +227,18 @@ class AuthSystem {
     return newApp;
   }
 
-  static updateApplicationStatus(appId, status, notes = "") {
+  static updateApplicationStatus(appId, status, notes = "", interviewData = null) {
     const apps = this.getApplications();
     const index = apps.findIndex(a => a.id === appId);
     if (index !== -1) {
       apps[index].status = status;
       if (notes) apps[index].notes = notes;
+
+      if (interviewData) {
+        apps[index].interviewEmailSent = true;
+        apps[index].interviewDetails = interviewData;
+      }
+
       localStorage.setItem(this.APPS_KEY, JSON.stringify(apps));
       return apps[index];
     }
@@ -203,6 +249,31 @@ class AuthSystem {
     let apps = this.getApplications();
     apps = apps.filter(a => a.id !== appId);
     localStorage.setItem(this.APPS_KEY, JSON.stringify(apps));
+  }
+
+  // Chat / Live Messaging Actions
+  static getMessagesForApp(appId) {
+    this.init();
+    const msgs = JSON.parse(localStorage.getItem(this.MESSAGES_KEY)) || [];
+    return msgs.filter(m => m.appId === appId);
+  }
+
+  static sendMessage(appId, senderId, senderName, senderRole, recipientId, text) {
+    this.init();
+    const msgs = JSON.parse(localStorage.getItem(this.MESSAGES_KEY)) || [];
+    const newMsg = {
+      id: "msg-" + Date.now(),
+      appId,
+      senderId,
+      senderName,
+      senderRole,
+      recipientId,
+      text,
+      timestamp: new Date().toLocaleString()
+    };
+    msgs.push(newMsg);
+    localStorage.setItem(this.MESSAGES_KEY, JSON.stringify(msgs));
+    return newMsg;
   }
 }
 
