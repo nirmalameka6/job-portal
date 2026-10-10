@@ -41,8 +41,12 @@
           <button onclick="openResumeVerifierModal()" class="hero-pill-badge" style="cursor:pointer; background:linear-gradient(135deg, rgba(37,99,235,0.4), rgba(139,92,246,0.4)); border:1px solid rgba(255,255,255,0.4);">
             <i class="fa-solid fa-file-shield" style="color:#60a5fa;"></i> Verify Resume & Match Jobs
           </button>
-          <span class="hero-pill-badge"><i class="fa-solid fa-building" style="color:#10b981;"></i> 450+ Verified Companies</span>
-          <span class="hero-pill-badge"><i class="fa-solid fa-globe" style="color:#a78bfa;"></i> 100% Remote Opportunities</span>
+          <button onclick="openAIInterviewModal('Senior Software Engineer')" class="hero-pill-badge" style="cursor:pointer; background:linear-gradient(135deg, rgba(16,185,129,0.4), rgba(37,99,235,0.4)); border:1px solid rgba(255,255,255,0.4);">
+            <i class="fa-solid fa-microphone" style="color:#10b981;"></i> Practice AI Mock Interview
+          </button>
+          <button onclick="openSalaryCalculatorModal()" class="hero-pill-badge" style="cursor:pointer; background:linear-gradient(135deg, rgba(245,158,11,0.4), rgba(239,68,68,0.4)); border:1px solid rgba(255,255,255,0.4);">
+            <i class="fa-solid fa-calculator" style="color:#f59e0b;"></i> Salary Calculator
+          </button>
         </div>
 
         <h1 class="hero-title">Discover Your Next <span>Career Milestone</span></h1>
@@ -73,9 +77,12 @@
           </button>
         </form>
 
-        <div style="margin-top:1.5rem;">
+        <div style="margin-top:1.5rem; display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
           <button type="button" onclick="openResumeVerifierModal()" class="btn btn-outline" style="color:#ffffff; border-color:rgba(255,255,255,0.4);">
             <i class="fa-solid fa-wand-magic-sparkles"></i> Upload / Paste Resume to Auto-Match Jobs
+          </button>
+          <button type="button" onclick="openAIInterviewModal('Senior Software Engineer')" class="btn btn-primary" style="background:linear-gradient(135deg, #10b981, #059669);">
+            <i class="fa-solid fa-microphone"></i> Practice AI Interview Simulation
           </button>
         </div>
 
@@ -174,6 +181,8 @@
   <script src="js/app.js"></script>
   <script src="js/jobs.js"></script>
   <script src="js/resume-verifier.js"></script>
+  <script src="js/ai-interview-simulator.js"></script>
+  <script src="js/salary-calculator.js"></script>
   <script src="js/ai-assistant.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {

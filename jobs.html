@@ -41,10 +41,16 @@
             <button onclick="clearCatalogFilters()" class="btn btn-secondary btn-sm" style="font-size:0.8rem;">Clear All</button>
           </div>
 
-          <!-- Resume Verifier Button -->
-          <div style="margin-bottom:1.25rem;">
+          <!-- Quick AI Tools -->
+          <div style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.25rem;">
             <button onclick="openResumeVerifierModal()" class="btn btn-primary btn-sm" style="width:100%; font-weight:700;">
               <i class="fa-solid fa-wand-magic-sparkles"></i> Verify Resume & Match
+            </button>
+            <button onclick="openSalaryCalculatorModal()" class="btn btn-outline btn-sm" style="width:100%; font-weight:700;">
+              <i class="fa-solid fa-calculator"></i> Salary Calculator
+            </button>
+            <button onclick="openAIInterviewModal('Frontend Engineer')" class="btn btn-secondary btn-sm" style="width:100%; font-weight:700;">
+              <i class="fa-solid fa-microphone"></i> Practice AI Interview
             </button>
           </div>
 
@@ -155,6 +161,8 @@
   <script src="js/app.js"></script>
   <script src="js/jobs.js"></script>
   <script src="js/resume-verifier.js"></script>
+  <script src="js/ai-interview-simulator.js"></script>
+  <script src="js/salary-calculator.js"></script>
   <script src="js/ai-assistant.js"></script>
 </body>
 </html>
